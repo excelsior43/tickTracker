@@ -2,10 +2,25 @@
 
 image:https://github.com/excelsior43/tickTracker/blob/master/TickTracker.jpg[link="https://github.com/excelsior43/tickTracker/blob/master/TickTracker.jpg"]
 
-== Assumptions 
+== Assumptions and technical specifications
 
-1. Past ticks with timestamp less than 60 seconds are ignored with HTTP No Content status (204) and NOT considered for statistics aggrigation calculations.
-2. It exposes 3 service mappings
+1. Past ticks with timestamp older than 60 seconds from current time are ignored with HTTP No Content status (204) and NOT considered for statistics aggrigation calculations.
+2. Instead of storing all the ticks in the store, I choose to store them in a <TickStatisticsDataStructure extends ConcurrentSkipListMap<Double price, <AtomicInteger> counter>>, 
+
+- with this approach lot of memory could be saved as we are only storing <Double> against a counter, which would be incremented or decremented when a tick in checkedIn() or checkedOut().
+- as the Key is of type Double, JVM caches all Double values just like strings.
+- The time complexity to find first() and last() element is only O(1)
+- average() could be calculated as sum/count() which is also O(1)
+- when ever tick is inserted/removed it is added/subtracted from sum which is an AtomicReference<Double> 
+
+3. To optimally track all ticks, I choose to use the Flow.Publisher, Flow.Subscriber, Flow.Subscriptions and Flow.Supplier
+to use backpressure driven approach to capture all ticks.
+
+4. Internally ticks are entered into Priority blocking queue to order them according to the timestamp in the supplier.
+5. To expire the tick, I am using a DelayedQueue backedup by Executors threads. 
+
+== Usage
+It exposes 3 service mappings
 - /ticks that is a sole input end point into the system
 - /statistics displays aggrigated data on all ticks
 - /statistics/{instrument} displays instrument specific data on the supplied instrument.
@@ -19,15 +34,17 @@ To launch your tests:
 ```
 
 To package application:
+
 ```
 ./mvnw clean package
 
 ```
 
-```
-## Tick capture Service
+== Usage
+
 - Application is available here http://localhost:8080/ticks
 - Ticks can be posted to it in parallel. 
+
 ###### Request
 ```json
    {
@@ -36,11 +53,11 @@ To package application:
       "timestamp": 12345678
    }
 ```
-###### Response
-Status code of 200 indicate that the data is consumed
-Status code of 200 indicate that the data is not considered
+###### Response 
 
-## Ticks aggrigation
+```
+HTTP.OK
+```
 
 #### Ticks aggrigation  GET : http://localhost:8080/statistics
 
