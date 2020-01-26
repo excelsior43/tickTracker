@@ -30,11 +30,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 			<exclusions>
-		        <exclusion>
-		            <groupId>org.springframework.boot</groupId>
-		            <artifactId>spring-boot-starter-logging</artifactId>
-		        </exclusion>
-		    </exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>io.projectreactor</groupId>
@@ -42,8 +42,8 @@
 			<version>2.0.8.RELEASE</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-log4j2</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -80,17 +80,17 @@
 	<build>
 		<plugins>
 			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-compiler-plugin</artifactId>
-			    <configuration>
-			        <release>11</release> <!-- maven.compiler.release -->
-			        <source>11</source>   <!-- maven.compiler.source  -->
-			    </configuration>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<release>11</release> <!-- maven.compiler.release -->
+					<source>11</source>   <!-- maven.compiler.source -->
+				</configuration>
 			</plugin>
-			 <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -111,24 +111,36 @@
 					</execution>
 				</executions>
 			</plugin>
+			
+			<plugin>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-maven-plugin</artifactId>
+			    <executions>
+			        <execution>
+			            <configuration>
+			                <mainClass>com.tick.tracker.web.TickMainApplication</mainClass>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
 		</plugins>
 		<testResources>
-           
-            <testResource>
-                 <directory>${basedir}/src/test/java/</directory>
-                <includes>
-                    <include>**/*.java</include>
-                </includes>
-            </testResource>
-            <testResource>
-                 <directory>${basedir}/src/test/resources/</directory>
-                <includes>
-                    <include>**/*.csv</include>
-                </includes>
-            </testResource>
-        </testResources>
+
+			<testResource>
+				<directory>${basedir}/src/test/java/</directory>
+				<includes>
+					<include>**/*.java</include>
+				</includes>
+			</testResource>
+			<testResource>
+				<directory>${basedir}/src/test/resources/</directory>
+				<includes>
+					<include>**/*.csv</include>
+				</includes>
+			</testResource>
+		</testResources>
 	</build>
- 
+
 	<repositories>
 		<repository>
 			<id>spring-milestones</id>
