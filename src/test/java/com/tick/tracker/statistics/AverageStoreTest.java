@@ -81,7 +81,6 @@ public class AverageStoreTest {
 			
 			listOfData.stream().forEach(tick -> {
 				tickStatisticsCalculator.consumeTick(tick.getBasicTick());
-				//System.out.println("Consuming tick :: "+tick);
 				});
 		} catch (Exception e) {
 			e.printStackTrace();

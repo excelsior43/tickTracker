@@ -131,15 +131,12 @@ class TickStatisticsComponentWithRandomData {
 			}
 			
 		};
-	
-
 	private Runnable consumer= new Runnable() {
 			@Override
 			public void run() {
 				while (queue.size() >0) {
 					try {
 						BasicTick item = queue.take();
-						//System.out.println(item);
 						calculator.consumeTick(new BasicTick(item.getInstrument(), item.getPrice(), Status.ACTIVATED , item.getTimestamp()));
 					} catch (InterruptedException e) {
 
@@ -147,6 +144,4 @@ class TickStatisticsComponentWithRandomData {
 				}
 			}
 		};
-	
-	
 }
