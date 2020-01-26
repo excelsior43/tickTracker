@@ -86,6 +86,6 @@ HTTP.OK
 == Run the application normally
 
 ```
-java -cp target/tickTracker-0.0.1-SNAPSHOT.jar  
+java -jar  target/tickTracker-0.0.1-SNAPSHOT.jar
 ```
 
