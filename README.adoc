@@ -16,6 +16,7 @@ to use backpressure driven approach to capture all ticks.
 
 4. Internally ticks are entered into Priority blocking queue to order them according to the timestamp in the supplier.
 5. To expire the tick, a DelayedQueue backed up by Executors threads. 
+6. Please note that the /statistics and /statistics/{instrument} directly query the statistics component to display the current state of the application.
 
 == Usage
 It exposes 3 service mappings
