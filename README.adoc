@@ -42,10 +42,9 @@ To package application:
 
 == Usage
 
-- Application is available here http://localhost:8080/ticks
-- Ticks can be posted to it in parallel. 
+#### Ticks injection  POST : http://localhost:8080/ticks
 
-###### Request
+###### Request payload
 ```json
    {
       "instrument": "Google",
