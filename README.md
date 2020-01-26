@@ -1,6 +1,6 @@
 = Tick Transfer Application
 
-image:https://raw.githubusercontent.com/excelsior43/tickTracker/master/TickTracker.jpg[link="https://raw.githubusercontent.com/excelsior43/tickTracker/master/TickTracker.jpg"]
+image:https://github.com/excelsior43/tickTracker/blob/master/TickTracker.jpg[link="https://github.com/excelsior43/tickTracker/blob/master/TickTracker.jpg"]
 
 == Assumptions 
 
