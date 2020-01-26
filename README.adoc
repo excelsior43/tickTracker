@@ -9,9 +9,7 @@ image:https://github.com/excelsior43/tickTracker/blob/master/TickTracker.jpg[lin
 
 - With this approach lot of memory could be saved as we are only storing <Double> against a counter, which would be incremented or decremented when a tick in checkedIn() or checkedOut().
 - as the Key is of type Double, JVM caches all Double values just like strings.
-- The time complexity to find first() and last() element is only O(1)
-- Average() could be calculated as sum/count() which is also O(1)
-- Whenever tick is inserted/removed it is added/subtracted from the sum which is an AtomicReference<Double> 
+- The time complexity to find first() and last() element is only O(1), similarly average() could be calculated as sum/count() which is also O(1). Whenever tick is inserted/removed it is added/subtracted from the sum which is an AtomicReference<Double> 
 
 3. To optimally track all ticks, I choose to use the Flow.Publisher, Flow.Subscriber, Flow.Subscriptions and Flow.Supplier
 to use backpressure driven approach to capture all ticks.
