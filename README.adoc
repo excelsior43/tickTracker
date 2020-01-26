@@ -65,7 +65,7 @@ To package application:
 ```json
    {
       "instrument": "Google",
-      "price": 100.3,
+      "price": 100.1,
       "timestamp": 12345678
    }
 ```
