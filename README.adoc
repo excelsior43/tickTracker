@@ -4,26 +4,26 @@ image:https://github.com/excelsior43/tickTracker/blob/master/TickTracker.jpg[lin
 
 == Assumptions and technical specifications
 
-1. Past ticks with timestamp older than 60 seconds from current time are ignored with HTTP No Content status (204) and NOT considered for statistics aggrigation calculations.
+1. Past ticks with a timestamp older than 60 seconds from the current time are ignored with HTTP No Content status (204) and NOT considered for statistics aggregation calculations.
 2. Instead of storing all the ticks in the store, I choose to store them in a <TickStatisticsDataStructure extends ConcurrentSkipListMap<Double price, <AtomicInteger> counter>>, 
 
-- with this approach lot of memory could be saved as we are only storing <Double> against a counter, which would be incremented or decremented when a tick in checkedIn() or checkedOut().
+- With this approach lot of memory could be saved as we are only storing <Double> against a counter, which would be incremented or decremented when a tick in checkedIn() or checkedOut().
 - as the Key is of type Double, JVM caches all Double values just like strings.
 - The time complexity to find first() and last() element is only O(1)
-- average() could be calculated as sum/count() which is also O(1)
-- when ever tick is inserted/removed it is added/subtracted from sum which is an AtomicReference<Double> 
+- Average() could be calculated as sum/count() which is also O(1)
+- Whenever tick is inserted/removed it is added/subtracted from the sum which is an AtomicReference<Double> 
 
 3. To optimally track all ticks, I choose to use the Flow.Publisher, Flow.Subscriber, Flow.Subscriptions and Flow.Supplier
 to use backpressure driven approach to capture all ticks.
 
 4. Internally ticks are entered into Priority blocking queue to order them according to the timestamp in the supplier.
-5. To expire the tick, I am using a DelayedQueue backedup by Executors threads. 
+5. To expire the tick, a DelayedQueue backed up by Executors threads. 
 
 == Usage
 It exposes 3 service mappings
-- /ticks that is a sole input end point into the system
-- /statistics displays aggrigated data on all ticks
-- /statistics/{instrument} displays instrument specific data on the supplied instrument.
+- /ticks is a sole input endpoint into the system
+- /statistics displays aggregated data on all ticks
+- /statistics/{instrument} displays instrument-specific data on the supplied instrument.
 
 == Building
 
